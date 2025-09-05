@@ -1,7 +1,11 @@
+import logging
 import voluptuous as vol
 from homeassistant import config_entries
 
 from .const import DOMAIN
+
+
+_LOGGER = logging.getLogger(__name__)
 
 DATA_SCHEMA = vol.Schema({
     vol.Required("device_name", default="AIBBQLife"): str,
