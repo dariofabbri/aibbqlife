@@ -1,0 +1,7 @@
+{
+  "name": "AIBBQLife Integration",
+  "content_in_root": false,
+  "domains": ["aibbqlife"],
+  "country": ["US"],
+  "homeassistant": "2023.8.0"
+}
