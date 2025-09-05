@@ -3,7 +3,7 @@ import logging
 
 from bleak import BleakClient, BleakScanner
 from homeassistant.components.sensor import SensorEntity
-from homeassistant.const import TEMP_CELSIUS
+from homeassistant.components.sensor.const import TEMP_CELSIUS
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
@@ -36,7 +36,7 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
     async def _scan_and_connect(self):
 
         _LOGGER.debug("Entering _scan_and_connect")
-        
+
         """Find device by name and connect."""
         while True:
             try:
