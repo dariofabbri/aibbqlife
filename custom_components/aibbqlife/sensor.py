@@ -10,6 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 async def async_setup_entry(hass, entry, async_add_entities):
+    _LOGGER.debug("Entering async_setup_entry; hass: %s entry: %s", hass, entry)
     """Set up AIBBQLife sensor from config entry."""
     device_name = entry.data["device_name"]
     char_uuid = entry.data["char_uuid"]
@@ -21,6 +22,7 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
     """Representation of the AIBBQLife Temperature sensor."""
 
     def __init__(self, device_name, char_uuid):
+        _LOGGER.debug("Entering __init__ function in AIBBQLifeTemperatureSensor; device: %s uuid: %s", device_name, char_uuid)
         self._attr_name = f"{device_name} Temperature"
         self._attr_native_unit_of_measurement = TEMP_CELSIUS
         self._attr_unique_id = f"{device_name.lower()}_temperature"
@@ -32,6 +34,9 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
         asyncio.create_task(self._scan_and_connect())
 
     async def _scan_and_connect(self):
+
+        _LOGGER.debug("Entering _scan_and_connect")
+        
         """Find device by name and connect."""
         while True:
             try:
