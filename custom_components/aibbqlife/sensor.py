@@ -3,7 +3,6 @@ import logging
 
 from bleak import BleakClient, BleakScanner
 from homeassistant.components.sensor import SensorEntity
-from homeassistant.components.sensor.const import TEMP_CELSIUS
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
@@ -24,7 +23,6 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
     def __init__(self, device_name, char_uuid):
         _LOGGER.debug("Entering __init__ function in AIBBQLifeTemperatureSensor; device: %s uuid: %s", device_name, char_uuid)
         self._attr_name = f"{device_name} Temperature"
-        self._attr_native_unit_of_measurement = TEMP_CELSIUS
         self._attr_unique_id = f"{device_name.lower()}_temperature"
         self._attr_native_value = None
         self._device_name = device_name
@@ -32,6 +30,10 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
         self._client = None
         self._connected = False
         asyncio.create_task(self._scan_and_connect())
+
+    @property
+    def unit_of_measurement(self):
+        return "°C"
 
     async def _scan_and_connect(self):
 
