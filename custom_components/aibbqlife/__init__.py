@@ -3,6 +3,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
 from .const import DOMAIN
+from .sensor import AIBBQLifeTemperatureSensor
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -15,6 +16,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     _LOGGER.debug("Setting up config entry for %s", DOMAIN)
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = entry.data
+
+     # Create sensor
+    async_add_entities([AIBBQLifeTemperatureSensor(entry.data)], update_before_add=True)
     return True
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
