@@ -14,8 +14,10 @@ class AIBBQLifeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
 
     async def async_step_user(self, user_input=None):
+        _LOGGER.debug("Starting async_step_user with input: %s", user_input)
         """Handle the initial step."""
         if user_input is not None:
+            _LOGGER.debug("Creating config entry with data: %s", user_input)
             return self.async_create_entry(title=user_input["device_name"], data=user_input)
 
         return self.async_show_form(step_id="user", data_schema=DATA_SCHEMA)
