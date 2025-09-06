@@ -48,9 +48,7 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
             try:
                 if not self._connected:
                     _LOGGER.info("Scanning for device named '%s'...", self._device_name)
-                    device = await scanner.find_device_by_filter(
-                        lambda d, ad: d.name == self._device_name
-                    )
+                    device = await scanner.find_device_by_name(self._device_name)
 
                     if not device:
                         _LOGGER.warning("Device '%s' not found, retrying...", self._device_name)
