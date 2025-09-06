@@ -48,12 +48,18 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
             try:
                 if not self._connected:
                     _LOGGER.info("Scanning for device named '%s'...", self._device_name)
-                    device = await scanner.find_device_by_name(self._device_name)
 
-                    if not device:
+                    matching_devices = [
+                        dev for dev in scanner.discovered_devices
+                        if dev.name and self._device_name in dev.name
+                    ]
+
+                    if not matching_devices:
                         _LOGGER.warning("Device '%s' not found, retrying...", self._device_name)
                         await asyncio.sleep(5)
                         continue
+                    
+                    device = matching_devices[0]
 
                     _LOGGER.info("Found %s at %s", self._device_name, device.address)
                     self._client = BleakClient(device.address)
