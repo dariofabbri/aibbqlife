@@ -12,21 +12,21 @@ async def async_setup_entry(hass, entry, async_add_entities):
     _LOGGER.debug("Entering async_setup_entry; hass: %s entry: %s", hass, entry)
     """Set up AIBBQLife sensor from config entry."""
     device_name = entry.data["device_name"]
-    char_uuid = entry.data["char_uuid"]
-    sensor = AIBBQLifeTemperatureSensor(device_name, char_uuid)
-    async_add_entities([sensor])
+    attribute_uuid = entry.data["attribute_uuid"]
+    sensor = AIBBQLifeTemperatureSensor(device_name, attribute_uuid)
+    async_add_entities([sensor], update_before_add=True)
 
 
 class AIBBQLifeTemperatureSensor(SensorEntity):
     """Representation of the AIBBQLife Temperature sensor."""
 
-    def __init__(self, device_name, char_uuid):
-        _LOGGER.debug("Entering __init__ function in AIBBQLifeTemperatureSensor; device: %s uuid: %s", device_name, char_uuid)
+    def __init__(self, device_name, attribute_uuid):
+        _LOGGER.debug("Entering __init__ function in AIBBQLifeTemperatureSensor; device: %s uuid: %s", device_name, attribute_uuid)
         self._attr_name = f"{device_name} Temperature"
         self._attr_unique_id = f"{device_name.lower()}_temperature"
         self._attr_native_value = None
         self._device_name = device_name
-        self._char_uuid = char_uuid
+        self._attribute_uuid = attribute_uuid
         self._client = None
         self._connected = False
         asyncio.create_task(self._scan_and_connect())

@@ -2,8 +2,7 @@
   "domain": "aibbqlife",
   "name": "AIBBQLife Sensor",
   "version": "1.1.0",
-  "requirements": ["bleak>=0.22.0"],
-  "dependencies": [],
+  "dependencies": ["bluetooth_adapters"],
   "codeowners": [],
   "config_flow": true
 }
