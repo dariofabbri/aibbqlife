@@ -65,10 +65,13 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
                     self._client = BleakClient(device.address)
 
                     await self._client.connect()
-                    self._connected = True
+                    self._connected = await self._client.is_coonected()
+                    if not self._connected:
+                        raise RuntimeError("Failde to connect")
+
                     _LOGGER.info("Connected to %s", self._device_name)
 
-                    await self._client.start_notify(self._char_uuid, self._notification_handler)
+                    await self._client.start_notify(self._attribute_uuid, self._notification_handler)
 
             except Exception as e:
                 _LOGGER.error("BLE error: %s", e)
