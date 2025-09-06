@@ -40,7 +40,7 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
 
         _LOGGER.debug("Entering _scan_and_connect")
 
-        scanner = bluetooth.async_get_scanner(hass)
+        scanner = bluetooth.async_get_scanner(self.hass)
         _LOGGER.debug("Scanner shared object acquired")
 
         """Find device by name and connect."""
