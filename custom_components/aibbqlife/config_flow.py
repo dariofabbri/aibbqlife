@@ -9,7 +9,7 @@ _LOGGER = logging.getLogger(__name__)
 
 DATA_SCHEMA = vol.Schema({
     vol.Required("device_name", default="AIBBQLife"): str,
-    vol.Required("char_uuid", default="bf83f3f2-399a-414d-9035-ce64ceb3ff67"): str,
+    vol.Required("attribute_uuid", default="bf83f3f2-399a-414d-9035-ce64ceb3ff67"): str,
 })
 
 class AIBBQLifeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
