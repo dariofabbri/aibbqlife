@@ -65,7 +65,7 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
                     self._client = BleakClient(device.address)
 
                     await self._client.connect()
-                    self._connected = await self._client.is_coonected()
+                    self._connected = await self._client.is_connected()
                     if not self._connected:
                         raise RuntimeError("Failde to connect")
 
