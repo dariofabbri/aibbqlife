@@ -2,6 +2,7 @@ import asyncio
 import logging
 
 from bleak import BleakClient, BleakScanner
+from homeassistant.components import bluetooth
 from homeassistant.components.sensor import SensorEntity
 from .const import DOMAIN
 
@@ -39,12 +40,15 @@ class AIBBQLifeTemperatureSensor(SensorEntity):
 
         _LOGGER.debug("Entering _scan_and_connect")
 
+        scanner = bluetooth.async_get_scanner(hass)
+        _LOGGER.debug("Scanner shared object acquired")
+
         """Find device by name and connect."""
         while True:
             try:
                 if not self._connected:
                     _LOGGER.info("Scanning for device named '%s'...", self._device_name)
-                    device = await BleakScanner.find_device_by_filter(
+                    device = await scanner.find_device_by_filter(
                         lambda d, ad: d.name == self._device_name
                     )
 
